@@ -19,3 +19,7 @@ class fila:
         self.fila[i] = j
     def mostre(self):
         print(self.fila)
+class aviao:
+    def __init__(self, aero= "AAA", comp="AA-000"):
+        self.aeroporto = aero
+        self.companhia = comp
