@@ -20,6 +20,7 @@ class fila:
     def mostre(self):
         print(self.fila)
 class aviao:
-    def __init__(self, aero= "AAA", comp="AA-000"):
+    def __init__(self, aero= "AAA", comp="AA", num = 000):
         self.aeroporto = aero
         self.companhia = comp
+        self.num = num
