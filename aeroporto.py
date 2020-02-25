@@ -1,3 +1,4 @@
+import random
 class fila:
     def __init__(self):
         self.fila = [] #construtor
@@ -20,7 +21,24 @@ class fila:
     def mostre(self):
         print(self.fila)
 class aviao:
-    def __init__(self, aero= "AAA", comp="AA", num = 000):
+    def __init__(self, aero= "AAA", comp="AA", num = 000, temp = 0, situ = "P"):
         self.aeroporto = aero
         self.companhia = comp
         self.num = num
+        self.temp = temp  # seja combustivel ou tempo estimado de voo
+        self.situ =situ       # P para pousando, D para decolando
+pistas = [None,None,None] #3 eh apens para decolagema ao menos de emergencia
+testes = random.randint(10, 30)
+num = "0123456789"
+situs = "PD"
+letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+for i in range(testes):
+    k = random.randint(0,3)
+    for j in range (k):
+        aero = letras[random.randint(0,25)]
+        if None not in pistas:
+
+
+
+
+
