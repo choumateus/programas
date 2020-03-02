@@ -4,6 +4,9 @@ class fila:
     def __init__(self):
         self.fila = [] #construtor
 
+    def __len__(self):
+        return len(self.fila)
+
     def vazio(self):
         return len(self.fila) == 0
 
@@ -28,7 +31,7 @@ class fila:
 
     def __str__(self):
         if len(self.fila) > 0:
-            return str(self.fila[0])
+            return str(self.fila[-1])
         return str(None)
 class aviao:
     def __init__(self, aero= "AAA", comp="AA", num = 000, temp = 0, situ = "P",emerg = "N",pouso_decolagem = 2, existencia = 1):
@@ -90,7 +93,7 @@ class pistas:
     def __str__(self):
         return "pista 1: " + str(self.pistas[0]) +  "\n pista 2: " + str(self.pistas[1]) + "\n pista 3: " + str(pistas[2])
 pistas = pistas()
-fila = fila()
+fila = fila( )
 testes = random.randint(10, 30)
 nums = "0123456789"
 situs = "PD"
@@ -103,30 +106,36 @@ for i in range(testes):
                 pistas[m].reduz_tempo()
             if pistas[m].passou_tempo():
                 pistas[m].existencia = 0
-    for n in range (len(pistas)): #inserindo os que estao na fila
-        if fila.vazio():
-            break
-        #capturando emergencias
-        if fila[n].emergencia():
-            pistas.append_emergencial(fila[n])
-        else:
-            pistas.append(fila[n])
+    contador_de_inseridos = 0
+    for n in range (len(fila)): #inserindo os que estao na fila
+        if not fila.vazio():
+            if fila[n].emergencia():
+                #print(len(fila))
+                pistas.append_emergencial(fila[n])
+                contador_de_inseridos+=1
+            else:
+                if pistas.append(fila[n]) == 1:
+                    contador_de_inseridos +=1
+        print(contador_de_inseridos)
+    for b in range(contador_de_inseridos): #retirando da fila
+        fila.tira()
     for j in range (k):
-        novo = 0
+        #novo = 0
         aero = letras[random.randint(0,25)] + letras[random.randint(0,25)] + letras[random.randint(0,25)]
         comp =  letras[random.randint(0,25)] + letras[random.randint(0,25)]
         num = int(nums[(random.randint(0,9))]+nums[(random.randint(0,9))]+nums[(random.randint(0,9))])
-        temp = int(nums[(random.randint(0,15))])
+        temp = int(nums[(random.randint(0,1))]+nums[(random.randint(0,9))])
         situ = situs[random.randint(0,1)]
         if random.randint(1,10) == 1:
-            A= aviao(aero,comp,num,temp,situ, "S")
-        else:
-            A = aviao(aero,comp,num,temp,situ)
-
-        if novo == 0 :
-            fila.insere(A)
+            pistas.append_emergencial(aviao(aero,comp,num,temp,situ, "S"))
+                novo = 1
+        #else:
+            #pistas.append(aviao(aero,comp,num,temp,situ))
+                #novo =1
+        #if novo == 0 :
+            fila.insere()
     print(pistas)
-    print(fila)
+    print("quantidade na fila = ",  len(fila))
 
 
 
