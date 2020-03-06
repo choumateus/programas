@@ -116,24 +116,25 @@ for i in range(testes):
             else:
                 if pistas.append(fila[n]) == 1:
                     contador_de_inseridos +=1
-        print(contador_de_inseridos)
+         #print(contador_de_inseridos)
     for b in range(contador_de_inseridos): #retirando da fila
         fila.tira()
     for j in range (k):
-        #novo = 0
+        novo = 0
         aero = letras[random.randint(0,25)] + letras[random.randint(0,25)] + letras[random.randint(0,25)]
         comp =  letras[random.randint(0,25)] + letras[random.randint(0,25)]
         num = int(nums[(random.randint(0,9))]+nums[(random.randint(0,9))]+nums[(random.randint(0,9))])
         temp = int(nums[(random.randint(0,1))]+nums[(random.randint(0,9))])
         situ = situs[random.randint(0,1)]
+        aviao1 = aviao(aero,comp,num,temp,situ)
         if random.randint(1,10) == 1:
-            pistas.append_emergencial(aviao(aero,comp,num,temp,situ, "S"))
-                novo = 1
-        #else:
-            #pistas.append(aviao(aero,comp,num,temp,situ))
-                #novo =1
-        #if novo == 0 :
-            fila.insere()
+            aviao1.emerg="S"
+            novo =1
+            pistas.append_emergencial(aviao1)
+        else:
+            novo = pistas.append(aviao1)
+        if novo == 0 :
+            fila.insere(aviao1)
     print(pistas)
     print("quantidade na fila = ",  len(fila))
 
