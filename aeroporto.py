@@ -64,7 +64,7 @@ class aviao:
         self.existencia = 0
     def __str__(self):
         if self.existencia == 1:
-            return "companhia : " + str(self.companhia) + " numero: " + str(self.num) + " aeroporto: " + str(self.aeroporto) + " emergencia: " + str(self.emerg) + str(self.pouso_decolagem) + " " + str(self.existencia)
+            return "companhia : " + str(self.companhia) + " numero: " + str(self.num) + " aeroporto: " + str(self.aeroporto)
         elif self.existencia == 0 :
             return "vazia"
     def reduz_tempo(self):
@@ -98,45 +98,81 @@ testes = random.randint(10, 30)
 nums = "0123456789"
 situs = "PD"
 letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-for i in range(testes):
-    k = random.randint(0,3) #quantidade de avioes que vao entrar
-    for m in range (len(pistas)): #passando o tempo
-        if pistas[m].existe():
-            if not  pistas[m].passou_tempo():
-                pistas[m].reduz_tempo()
-            if pistas[m].passou_tempo():
-                pistas[m].existencia = 0
-    contador_de_inseridos = 0
-    for n in range (len(fila)): #inserindo os que estao na fila
-        if not fila.vazio():
-            if fila[n].emergencia():
-                #print(len(fila))
-                pistas.append_emergencial(fila[n])
-                contador_de_inseridos+=1
+def testar():
+    for i in range(testes):
+        k = random.randint(0,3) #quantidade de avioes que vao entrar
+        for m in range (len(pistas)): #passando o tempo
+            if pistas[m].existe():
+                if not  pistas[m].passou_tempo():
+                    pistas[m].reduz_tempo()
+                if pistas[m].passou_tempo():
+                    pistas[m].existencia = 0
+        contador_de_inseridos = 0
+        for n in range (len(fila)): #inserindo os que estao na fila
+            if not fila.vazio():
+                if fila[n].emergencia():
+                    #print(len(fila))
+                    pistas.append_emergencial(fila[n])
+                    contador_de_inseridos+=1
+                else:
+                    if pistas.append(fila[n]) == 1:
+                        contador_de_inseridos +=1
+            #print(contador_de_inseridos)
+        for b in range(contador_de_inseridos): #retirando da fila
+            fila.tira()
+        for j in range (k):
+            novo = 0
+            aero = letras[random.randint(0,25)] + letras[random.randint(0,25)] + letras[random.randint(0,25)]
+            comp =  letras[random.randint(0,25)] + letras[random.randint(0,25)]
+            num = int(nums[(random.randint(0,9))]+nums[(random.randint(0,9))]+nums[(random.randint(0,9))])
+            temp = int(nums[(random.randint(0,1))]+nums[(random.randint(0,9))])
+            situ = situs[random.randint(0,1)]
+            aviao1 = aviao(aero,comp,num,temp,situ)
+            if random.randint(1,10) == 1:
+                aviao1.emerg="S"
+                novo =1
+                pistas.append_emergencial(aviao1)
             else:
-                if pistas.append(fila[n]) == 1:
-                    contador_de_inseridos +=1
-         #print(contador_de_inseridos)
-    for b in range(contador_de_inseridos): #retirando da fila
-        fila.tira()
-    for j in range (k):
-        novo = 0
-        aero = letras[random.randint(0,25)] + letras[random.randint(0,25)] + letras[random.randint(0,25)]
-        comp =  letras[random.randint(0,25)] + letras[random.randint(0,25)]
-        num = int(nums[(random.randint(0,9))]+nums[(random.randint(0,9))]+nums[(random.randint(0,9))])
-        temp = int(nums[(random.randint(0,1))]+nums[(random.randint(0,9))])
-        situ = situs[random.randint(0,1)]
-        aviao1 = aviao(aero,comp,num,temp,situ)
-        if random.randint(1,10) == 1:
-            aviao1.emerg="S"
-            novo =1
-            pistas.append_emergencial(aviao1)
-        else:
-            novo = pistas.append(aviao1)
-        if novo == 0 :
-            fila.insere(aviao1)
-    print(pistas)
-    print("quantidade na fila = ",  len(fila))
+                novo = pistas.append(aviao1)
+            if novo == 0 :
+                fila.insere(aviao1)
+        print(pistas)
+def finalizar(): #para finalizar a fila e fechar o aeroporto
+    print("retirando")
+    while len(fila) > 0:
+        for m in range (len(pistas)): #passando o tempo
+            if pistas[m].existe():
+                if not  pistas[m].passou_tempo():
+                    pistas[m].reduz_tempo()
+                if pistas[m].passou_tempo():
+                    pistas[m].existencia = 0
+        contador_de_inseridos = 0
+        for n in range (len(fila)): #inserindo os que estao na fila
+            if not fila.vazio():
+                if fila[n].emergencia():
+                    #print(len(fila))
+                    pistas.append_emergencial(fila[n])
+                    contador_de_inseridos+=1
+                else:
+                    if pistas.append(fila[n]) == 1:
+                        contador_de_inseridos +=1
+            #print(contador_de_inseridos)
+        for b in range(contador_de_inseridos): #retirando da fila
+            fila.tira()
+        print(pistas)
+    for j in range (3):
+        for m in range(3):  # passando o tempo
+            if pistas[m].existe():
+                if not pistas[m].passou_tempo():
+                    pistas[m].reduz_tempo()
+                if pistas[m].passou_tempo():
+                    pistas[m].existencia = 0
+        print(pistas)
+    print()
+    print(" ***********Aeroporto fechado************* ")
+testar()
+finalizar()
+
 
 
 
