@@ -64,7 +64,7 @@ class aviao:
         self.existencia = 0
     def __str__(self):
         if self.existencia == 1:
-            return "companhia : " + str(self.companhia) + " numero: " + str(self.num) + " aeroporto: " + str(self.aeroporto)
+            return "companhia : " + str(self.companhia) + " numero: " + str(self.num) + " aeroporto: " + str(self.aeroporto) + " emergencial? " + str(self.emerg)
         elif self.existencia == 0 :
             return "vazia"
     def reduz_tempo(self):
@@ -84,6 +84,7 @@ class pistas:
         for i in range(len(pistas)):
             if pistas[i].temp < 2 :
                 self.pistas[i] = a
+                break
     def __len__(self):
         return len(self.pistas)
     def __getitem__(self, i):
