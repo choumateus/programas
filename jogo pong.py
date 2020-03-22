@@ -87,8 +87,10 @@ while True:
         bola.dx *= -1
 
     #quando a bola atinge a barra
-    if bola.xcor() > 340 and (bola.ycor() < barra2.ycor() + 50 and bola.ycor() > barra2.ycor() - 50 ):
+    if (bola.xcor() > 340 and bola.xcor() < 350) and (bola.ycor() < barra2.ycor() + 50 and bola.ycor() > barra2.ycor() - 50 ):
+        bola.setx(340)
         bola.dx *= -1
-    if bola.xcor() < -340 and (bola.ycor() < barra1.ycor() + 50 and bola.ycor() > barra1.ycor() - 50):
+    if (bola.xcor() < -340 and bola.xcor() > -350) and (bola.ycor() < barra1.ycor() + 50 and bola.ycor() > barra1.ycor() - 50):
+        bola.setx(-340)
         bola.dx *= -1
 
