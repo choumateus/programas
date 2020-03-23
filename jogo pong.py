@@ -27,7 +27,7 @@ barra2.goto(350,0) #coordenadas
 
 # ********** bola **************
 bola = turtle.Turtle() #objeto
-bola.speed(0)
+bola.speed(1)
 bola.shape("square")
 bola.color("white")
 bola.penup()
@@ -36,7 +36,6 @@ bola.dx = 0.2 #direcoes e velocidade
 bola.dy = 0.2
 
 #*********  funcoes *****************
-
 def barra1_pra_cima():
     y = barra1.ycor()
     y += 20 #coordenadas de y mais 20
@@ -121,4 +120,19 @@ while True:
         winsound.PlaySound("test.wav", winsound.SND_ASYNC)
         bola.setx(-340)
         bola.dx *= -1
+    if pontos_jogador2 >=1 or pontos_jogador1>=1:
+        bola.setx(5000000)
+        barra1.setx(5000000)
+        barra2.setx(5000000)
+        caneta.setx(0)
+        caneta.sety(0)
+        break
+
+while True:
+    tela.update()
+
+    if pontos_jogador1 > pontos_jogador2:
+        caneta.write("JOGADOR 1 VENCEU", align="center", font=("Courier", 50, "normal"))
+    else:
+        caneta.write("JOGADOR 2 VENCEU", align="center", font=("Courier", 50, "normal"))
 
