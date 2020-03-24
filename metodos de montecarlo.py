@@ -46,3 +46,4 @@ for i in range(1000):
         maxy = f(x)
         print(maxy)
 x , y = randrange(0,1) , randrange(0,1)
+print(3)
