@@ -35,7 +35,6 @@ print("valor estimado:", integral_estimada1)
 print("tamanho da amostra:", n1)
 print("erro do Crude pela variancia= ", erro1)
 
-
 #Metodo hit-miss
 #pegamos coordenadas aleatorias,caso ela esteja "dentro da curva"contamos
 #sabemos atraves de uma analise de grafico que a funcao f entre 0 e 1 possui um valor maximo de um
