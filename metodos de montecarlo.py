@@ -94,7 +94,7 @@ while erro3>=0.01:
 
 print("valor estimado:", integral_estimada3)
 print("tamanho da amostra:", n3)
-print("erro do Crude pela variancia= ", erro3)
+print("erro do Importance Sampling pela variancia= ", erro3)
 
 
 
