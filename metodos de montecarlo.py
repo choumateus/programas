@@ -8,6 +8,11 @@ def desvio_padrao(x,xm):
     for i in range(len(x)):
        var+=(x[i]-xm)**2/(len(x)-1)
     return var**(1/2)
+def media(x):
+    soma = 0
+    for i in range(len(x)):
+        soma += x[i]/len(x)
+    return soma
 
 #vamos montar a funcao dada do enunciado
 b=0.11221352     #NUSP
@@ -63,9 +68,9 @@ print("erro do hit-miss= ", erro2)
 #Metodo 3: Importance Sampling
 #vamos usar uma funcao g(x) que eh a auxiliar desse metodo, ela vai ser a funcao Beta
 def beta():
-    return numpy.random.beta(0.96,1.02)
+    return numpy.random.beta(0.8,1.0)
 def g(x):
-    return scipy.stats.beta.pdf(x,0.96,1.02)
+    return scipy.stats.beta.pdf(x,0.8,1.0)
 def h(x):
     return f(x)/g(x)
 n3=1
@@ -96,5 +101,42 @@ print("valor estimado:", integral_estimada3)
 print("tamanho da amostra:", n3)
 print("erro do Importance Sampling pela variancia= ", erro3)
 
+#Metodo 4 : funcao auxiliar
+#usaremos uma funcao que se comporta de forma similar a nossa f(x)
+def t(x):       #esta funcao tem um coeficiente de correlacao perto de 1 com nossa f(x)
+    return 1-0.4*x
+def cov(a,b):
+    soma= 0
+    for i in range (len(a)):
+        soma += ((a[i]-media(a))*(b[i]-media(b)))/(len(a))
+    return soma
+def var(x,xm):
+    var=0
+    for i in range(len(x)):
+       var+=(x[i]-xm)**2/(len(x)-1)
+    return var
+n4=1
+somaf=0
+somat=0
+erro4= 5 #qualquer numero maior que 0,01
+fl, tl=[],[] #listas para a variancia e covariancia
+integral_estimada4 = 0
+c = 0   #a-â
+while erro4 >= 0.01:
+    x= randrange(0,10000000)/10000000
+    somaf+=f(x)
+    somat+=t(x)
+    fl.append(f(x))
+    tl.append(t(x))
+    integralf = somaf/n4
+    integralt = somat/n4
+    c = integralf-integralt
+    integral_estimada4 = integralt + c
+    if n4 > 2:
+        erro4 = ((var(fl,media(fl)) + var(tl,media(tl)) - 2*cov(fl,tl))/n4)**(1/2)
+    n4+=1
+print("valor estimado:", integral_estimada4)
+print("tamanho da amostra:", n4)
+print("erro do ultimo metodo pela variancia= ", erro4)
 
 
