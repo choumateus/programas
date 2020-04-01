@@ -79,23 +79,14 @@ erro3 = 5 #qualquer numero maior que 0,01
 xl3=[]  #lista para o desvio padrao
 integral_estimada3 = 0
 while erro3>=0.01:
-    if n3<20:
-        x = beta()
-        if g(x)>=f(x):
-            val =h(x)
-            soma3 += val
-            xl3.append(val)
-            integral_estimada3 = soma3 / n3
-            n3+=1
-    else:
-        x = beta()
-        if g(x)>=f(x):
-            soma3 += h(x)
-            xl3.append(h(x))
-            integral_estimada3 = soma3 / n3
-            dv=desvio_padrao(xl3,integral_estimada3)
-            erro3 = dv/(n3)**(1/2)
-            n3+=1
+    x = beta()
+    soma3 += h(x)
+    xl3.append(h(x))
+    integral_estimada3 = soma3 / n3
+    if n3>20:
+        dv=desvio_padrao(xl3,integral_estimada3)
+        erro3 = dv/(n3)**(1/2)
+    n3+=1
 
 print("valor estimado:", integral_estimada3)
 print("tamanho da amostra:", n3)
