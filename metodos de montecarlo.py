@@ -170,8 +170,8 @@ while erro3>=0.01:
             xteste.append(g(x1))
     for i in range(n3):
         x1 = beta(xk[i])
-        soma3+=f(x1)/g(x1)
-        xl3.append(f(x1)/g(x1))
+        soma3+=h(x1)
+        xl3.append(h(x1))
     integral_estimada3 = soma3 / n3
     if n3>1:
         dv=desvio_padrao(xl3,integral_estimada3)
@@ -221,3 +221,31 @@ print("tamanho da amostra:", n4)
 print("erro do ultimo metodo pela variancia= ", erro4)
 print(" **********************" )
 print("com gerador de numeros quasi-aleatorios")
+n4=1
+somaf=0
+somat=0
+erro4= 5 #qualquer numero maior que 0,01
+fl, tl=[],[] #listas para a variancia e covariancia
+integral_estimada4 = 0
+c = 0   #a-â
+while erro4 >= 0.01:
+    x= num.sample(n4)
+    tl=[]
+    fl=[]
+    somaf=0
+    somat=0
+    for i in range(n4):
+        somaf+=f(x[i])
+        somat+=t(x[i])
+        fl.append(f(x[i]))
+        tl.append(t(x[i]))
+    integralf = somaf/n4
+    integralt = somat/n4
+    c = integralf-integralt
+    integral_estimada4 = integralt + c
+    if n4 > 2:
+        erro4 = ((var(fl,media(fl)) + var(tl,media(tl)) - 2*cov(fl,tl))/n4)**(1/2)
+    n4+=1
+print("valor estimado:", integral_estimada4)
+print("tamanho da amostra:", n4)
+print("erro do ultimo metodo pela variancia= ", erro4)
