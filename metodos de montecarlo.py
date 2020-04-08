@@ -2,7 +2,9 @@ from random import randrange
 import math as mt
 import numpy
 import scipy.stats
+import chaospy
 #funcao desvio padrao para usarmos a propriedade do erro=DV/raiz de N
+print("com geradores pseudo-aleatorios")
 def desvio_padrao(x,xm):
     var=0
     for i in range(len(x)):
@@ -41,7 +43,33 @@ while erro1 >= 0.01:
 print("valor estimado:", integral_estimada1)
 print("tamanho da amostra:", n1)
 print("erro do Crude pela variancia= ", erro1)
-
+print(" **********************" )
+print("com gerador de numeros quasi-aleatorios")
+#queremos a media de uma amostra de n x no qual ela se aproxima do valor da integral
+n1=1
+soma1=0
+erro1 = 5 #qualquer numero maior que 0,01
+num = chaospy.Uniform(0,1)
+integral_estimada1 = 0
+while erro1 >= 0.01:
+    x = num.sample(n1)
+    soma1=0
+    xl=[]
+    for i in range(len(x)):
+        soma1+= f(x[i])
+        xl.append(f(x[i]))
+    integral_estimada1 = soma1/n1
+    if n1<5:
+        n1+=1
+    else:
+        dv=desvio_padrao(xl,integral_estimada1)
+        erro1 = dv/(n1)**(1/2)
+        n1+=1
+print("valor estimado:", integral_estimada1)
+print("tamanho da amostra:", n1)
+print("erro do Crude pela variancia= ", erro1)
+print(" ******************** ")
+print(" com geradores pseudo-aleatorios")
 #Metodo 2: hit-miss
 #pegamos coordenadas aleatorias,caso ela esteja "dentro da curva"contamos
 #sabemos atraves de uma analise de grafico que a funcao f entre 0 e 1 possui um valor maximo de um
@@ -62,8 +90,30 @@ while erro2 >= 0.01:
     n2+=1
 
 print("valor estimado:", integral_estimada2)
-print("tamanho da amostra:", n2-1)
+print("tamanho da amostra:", n2)
 print("erro do hit-miss= ", erro2)
+print(" **********************" )
+print("com gerador de numeros quasi-aleatorios")
+n2 = 1
+integral_estimada2 = 0
+erro2 = 5
+soma2 = 0
+while erro2 >= 0.01:
+    x , y = num.sample(n2), num.sample(n2) #numeros entre 0 e 1
+    soma2=0
+    for i in range(n2):
+        if f(x[i]) > y[i]:
+            soma2+=1
+    integral_estimada2 = soma2/n2
+    if n2>50:
+        erro2 = desvio_padrao_bernoulli(integral_estimada2)/n2**(1/2)
+    n2+=1
+
+print("valor estimado:", integral_estimada2)
+print("tamanho da amostra:", n2)
+print("erro do hit-miss= ", erro2)
+print(" ******************** ")
+print(" com geradores pseudo-aleatorios")
 
 #Metodo 3: Importance Sampling
 #vamos usar uma funcao g(x) que eh a auxiliar desse metodo, ela vai ser a funcao Beta
@@ -91,7 +141,47 @@ while erro3>=0.01:
 print("valor estimado:", integral_estimada3)
 print("tamanho da amostra:", n3)
 print("erro do Importance Sampling pela variancia= ", erro3)
-
+print(" **********************" )
+print("com gerador de numeros quasi-aleatorios")
+def beta(x):
+    return scipy.stats.beta.pdf(x,0.8,1.0)
+def g(x):
+    return scipy.stats.beta.pdf(x,0.8,1.0)
+def h(x):
+    return f(x)/g(x)
+n3=1
+soma3=0
+erro3 = 5 #qualquer numero maior que 0,01
+xl3=[]  #lista para o desvio padrao
+xteste=[]
+integral_estimada3 = 0
+while erro3>=0.01:
+    soma3=0
+    xl3=[]
+    xk=num.sample(n3)
+    for i in range(n3):
+        x1=beta(xk[i])
+        xteste.append(g(x1))
+    while 0 in xteste:  #para evitar uma divisao por 0
+        xteste=[]
+        xk = num.sample(n3)
+        for i in range(n3):
+            x1=beta(xk[i])
+            xteste.append(g(x1))
+    for i in range(n3):
+        x1 = beta(xk[i])
+        soma3+=f(x1)/g(x1)
+        xl3.append(f(x1)/g(x1))
+    integral_estimada3 = soma3 / n3
+    if n3>1:
+        dv=desvio_padrao(xl3,integral_estimada3)
+        erro3 = dv/(n3)**(1/2)
+    n3+=1
+print("valor estimado:", integral_estimada3)
+print("tamanho da amostra:", n3)
+print("erro do Importance Sampling pela variancia= ", erro3)
+print(" ******************** ")
+print(" com geradores pseudo-aleatorios")
 #Metodo 4 : funcao auxiliar
 #usaremos uma funcao que se comporta de forma similar a nossa f(x)
 def t(x):       #esta funcao tem um coeficiente de correlacao perto de 1 com nossa f(x)
@@ -129,5 +219,5 @@ while erro4 >= 0.01:
 print("valor estimado:", integral_estimada4)
 print("tamanho da amostra:", n4)
 print("erro do ultimo metodo pela variancia= ", erro4)
-
-
+print(" **********************" )
+print("com gerador de numeros quasi-aleatorios")
