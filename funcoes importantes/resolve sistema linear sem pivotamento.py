@@ -1,7 +1,7 @@
 def sem_pivo(Matriz):
     n = len(Matriz)
-    #if len(Matriz) != len(Matriz[0])-1:
-        #return "sem solucao"
+    if len(Matriz) != len(Matriz[0])-1:
+        return "sem solucao"
     for i in range(0, n):
         #escalonando a matriz
         for k in range(i + 1, n):
@@ -21,7 +21,7 @@ def sem_pivo(Matriz):
     return x
 a=[[2,2,4,8],[3,5,8,16],[9,21,29,59]]
 print(sem_pivo(a))
-
+print(a)
 
 
 
