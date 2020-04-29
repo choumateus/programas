@@ -1,3 +1,4 @@
+import numpy as np
 def gerador(n):
     mat=[[0 for i in range(n+1)]for j in range(n)]
     n = len(mat)
@@ -87,6 +88,8 @@ print("*************             PARTE 1               ****************" )
 rodar = "sim"
 n=2
 while rodar != "nao":
+    print("Matriz: ", np.array(gerador(n)))
+    print()
     print("solucao encontrada pelo algoritmo sem pivo: ",sem_pivo(n))
     print()
     print("norma 2 do vetor x da solucao sem pivo com o a solucao oficial", norma_2(sem_pivo(n)))
@@ -102,7 +105,6 @@ while rodar != "nao":
         x = int(input("em quantas unidades voce deseja aumentar o n? "))
         n+=x
 import random
-import numpy as np
 def matriz_randomica(n):
     matriz =[[random.random() for i in range(n)] for i in range(n)]
     matriz1 = np.transpose(matriz)
@@ -208,6 +210,7 @@ while rodar2!= "nao":
     y = cria_vetor_y(a)
     l = cholesky(a)
     u = np.transpose(l)
+    print("matriz: ", np.array(a))
     tempo1=time.time()
     print("solucao encontrada pelo algoritmo de chulesky:", resolve_chulesky(u,l,y))
     print()
