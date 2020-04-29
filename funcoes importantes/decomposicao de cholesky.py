@@ -1,0 +1,16 @@
+from math import sqrt
+def cholesky(A):
+    n = len(A)
+
+    # criando a matriz L
+    L = [[0.0] * n for i in range(n)]
+
+    for i in range(n):
+        for k in range(i + 1):
+            somatorio = sum(L[i][j] * L[k][j] for j in range(k))
+
+            if (i == k):  # elementos da diagonal
+                L[i][k] = sqrt(A[i][i] - somatorio)
+            else:           #elementos fora da diagonal
+                L[i][k] = (1.0 / L[k][k] * (A[i][k] - somatorio))
+    return L
