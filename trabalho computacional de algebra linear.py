@@ -41,10 +41,10 @@ def pivotamento_parcial(n):
 
     # encontrando o maior elemento da coluna para realizar a troca
     for i in range(0, n):
-        maxEl = Matriz[i][i]
+        maxEl = abs(Matriz[i][i])
         maxRow = i
         for k in range(i + 1, n):
-            if Matriz[k][i] > maxEl:
+            if abs(Matriz[k][i]) > abs(maxEl):
                 maxEl = Matriz[k][i]
                 maxRow = k
 
@@ -70,7 +70,7 @@ def pivotamento_parcial(n):
 def norma_2(x):
     soma=0
     for i in range(len(x)):
-        soma+= (x[i]-1)**2
+        soma+= abs((x[i])-1)**2
     return (soma)**(1/2)
 def determinante(Matriz):
     n = len(Matriz)
@@ -88,7 +88,7 @@ print("*************             PARTE 1               ****************" )
 rodar = "sim"
 n=2
 while rodar != "nao":
-    print("Matriz: ", np.array(gerador(n)))
+    print("Matriz com tamanho", n ,"\n", np.array(gerador(n)))
     print()
     print("solucao encontrada pelo algoritmo sem pivo: ",sem_pivo(n))
     print()
@@ -100,7 +100,7 @@ while rodar != "nao":
     print()
     print("norma 2 do vetor x da solucao com pivotamento parcial com o a solucao oficial", norma_2(pivotamento_parcial(n)))
     print()
-    rodar = input("continuo rodando essa parte? (sim ou nao) ")
+    rodar = input("continuo rodando essa parte? (digite nao para parar, ou qualquer coisa para continuar) ")
     if rodar != "nao":
         x = int(input("em quantas unidades voce deseja aumentar o n? "))
         n+=x
