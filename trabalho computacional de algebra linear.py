@@ -237,7 +237,7 @@ while rodar2!= "nao":
     print()
     print("determinante da matriz: ", determinante(a))
     print()
-    rodar2 = input("continuo rodando essa parte? (sim ou nao) ")
+    rodar2 = input("digite nao para parar ou qualquer coisa para continuar ")
     if rodar2 != "nao":
         x = int(input("em quantas unidades voce deseja aumentar o n? "))
         n+=x
