@@ -123,6 +123,7 @@ def g(x):
     return scipy.stats.beta.pdf(x,0.8,1.0)
 def h(x):
     return f(x)/g(x)
+scipy.stats.gamma.pdf(1.501925028,1.3)
 n3=1
 soma3=0
 erro3 = 5 #qualquer numero maior que 0,01
