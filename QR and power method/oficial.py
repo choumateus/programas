@@ -63,9 +63,12 @@ def norma_infinita_p(vetor):
     return max
 
 def metodo_inverso_da_potencia(matriz,tol,N):
-    x = [1. for i in range(len(matriz))]
-    vet = np.dot(matriz,x)
-    q = max(vet)
+    x = [1 for i in range(len(matriz))]
+    x = np.array(x)
+    matriz = np.array(matriz)
+    un = [1 for i in range(len(matriz))]
+    vet = np.dot(matriz,un)
+    q =max(vet)
     k=1
     xp = norma_infinita_p(x)
     x = np.dot(x,1/xp)
@@ -82,7 +85,7 @@ def metodo_inverso_da_potencia(matriz,tol,N):
         if erro < tol:
             u = (1/u) + q
             print(k)
-            return(u,x)
+            return(u)
         k+=1
     return "maximo excedido"
 def COO_para_tradicional(lin,col,val):
@@ -125,8 +128,7 @@ def algoritmo_de_QR(A,tol,N):
             if err[i] > erro:
                 erro = err[i]
         if erro <= tol:
-            print(-np.sort(-diag))
-            return k
+            return(-np.sort(-diag))
         k += 1
     return "maximo excedido"
 
@@ -135,7 +137,5 @@ while True:
     arq = str(input("entre com o nome do arquivo"))
     matriz = retorna_matriz(arq)
     tempo1 = time.time()
-    raio = (metodo_simetrico_da_potencia(matriz,0.0000001,10000))
+    raio = (metodo_inverso_da_potencia(matriz,0.0001,10000))
     tempo = time.time() - tempo1
-    raio_real = 8.635910e+02
-    print(raio ,"&", raio_real,"&", raio - raio_real,"&",tempo)
