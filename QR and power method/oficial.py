@@ -66,8 +66,12 @@ def metodo_inverso_da_potencia(matriz,tol,N):
     x = [1 for i in range(len(matriz))]
     x = np.array(x)
     matriz = np.array(matriz)
+    matriz1 = [[] for i in range(len(matriz))]
+    for i in range(len(matriz)):
+        for j in range(len(matriz)):
+            matriz1[i].append(abs(matriz[i][j]))
     un = [1 for i in range(len(matriz))]
-    vet = np.dot(matriz,un)
+    vet = np.dot(matriz1,un)
     q =max(vet)
     k=1
     xp = norma_infinita_p(x)
@@ -137,5 +141,6 @@ while True:
     arq = str(input("entre com o nome do arquivo"))
     matriz = retorna_matriz(arq)
     tempo1 = time.time()
-    raio = (metodo_inverso_da_potencia(matriz,0.0001,10000))
+    raio = (metodo_inverso_da_potencia(matriz,0.000001,10000))
     tempo = time.time() - tempo1
+    print(raio)
