@@ -120,7 +120,7 @@ while True:
         winsound.PlaySound("test.wav", winsound.SND_ASYNC)
         bola.setx(-340)
         bola.dx *= -1
-    if pontos_jogador2 >=1 or pontos_jogador1>=1:
+    if pontos_jogador2 >=10 or pontos_jogador1>=10:
         bola.setx(5000000)
         barra1.setx(5000000)
         barra2.setx(5000000)
