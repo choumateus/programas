@@ -154,7 +154,7 @@ def redrawGameWindow():
     for bullet in bullets:
         bullet.draw(window)
     if not goblin.visible:
-        text = font.render("YOU WIN ", 1, (0, 0, 0))
+        text = font.render("YOU WON ", 1, (0, 0, 0))
         window.blit(text, (180, 180))
     if not main_character.visible:
         font2 = pygame.font.SysFont("comicsans",60,True)
